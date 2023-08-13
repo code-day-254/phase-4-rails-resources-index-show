@@ -5,7 +5,8 @@ class BirdsController < ApplicationController
     end
 
     def create
-        birds = Bird.create(name: params[:name], species: params[:species])
+        bird = Bird.create(birds_params)
+        render json: bird
     end
 
     def show
@@ -15,6 +16,12 @@ class BirdsController < ApplicationController
         else
             render json: {error: "page_not_found"}, status: :not_found
         end
+    end
+
+    private
+
+    def birds_params
+        params.permit(:name, :species)
     end
     
 end
